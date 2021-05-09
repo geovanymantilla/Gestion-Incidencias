@@ -7,7 +7,7 @@
     <div class="card-body">
         @if (auth()->user()->is_Support)
         <div class="card border-success mb-3">
-            <div class="card-header text-white bg-success">
+            <div class="card-header text-white bg-success" style="padding-bottom: 0%">
                 <h4 class="card-title">Incidencias asignadas a mí</h4>
             </div>
             <div class="card-body">
@@ -30,7 +30,7 @@
                                         {{ $incident->id }}
                                     </a>
                                 </td>
-                                <td>{{ $incident->category->name }}</td>
+                                <td>{{ $incident->category_name }}</td>
                                 <td>{{ $incident->severity_full }}</td>
                                 <td>{{ $incident->state }}</td>
                                 <td>{{ $incident->created_at }}</td>
@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="card border-success mb-3">
-            <div class="card-header text-white bg-success">
+            <div class="card-header text-white bg-success" style="padding-bottom: 0%">
                 <h4 class="card-title">Incidencias sin asignar</h4>
             </div>
             <div class="card-body">
@@ -66,13 +66,13 @@
                                         {{ $incident->id }}
                                     </a>
                                 </td>
-                                <td>{{ $incident->category->name }}</td>
+                                <td>{{ $incident->category_name }}</td>
                                 <td>{{ $incident->severity_full }}</td>
                                 <td>{{ $incident->state }}</td>
                                 <td>{{ $incident->created_at }}</td>
                                 <td>{{ $incident->title_short }}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm">
+                                    <a href="/incidencia/{{ $incident->id }}/atender" class="btn btn-primary btn-sm">
                                         Atender
                                     </a>
                                 </td>
@@ -86,7 +86,7 @@
         @endif
         
         <div class="card border-success mb-3">
-            <div class="card-header text-white bg-success">
+            <div class="card-header text-white bg-success" style="padding-bottom: 0%">
                 <h4 class="card-title">Incidencias reportadas por mí</h4>
             </div>
             <div class="card-body">
@@ -99,7 +99,7 @@
                             <th>Estado</th>
                             <th>Fecha creación</th>
                             <th>Título</th>
-                            <th>Responsable</th>
+                            <th>Opción</th>
                         </tr>
                     </thead>
                     <tbody id="dashboard_by_me">
@@ -110,13 +110,15 @@
                                         {{ $incident->id }}
                                     </a>
                                 </td>
-                                <td>{{ $incident->category->name }}</td>
+                                <td>{{ $incident->category_name }}</td>
                                 <td>{{ $incident->severity_full }}</td>
                                 <td>{{ $incident->state }}</td>
                                 <td>{{ $incident->created_at }}</td>
                                 <td>{{ $incident->title_short }}</td>
                                 <td>
-                                    {{ $incident->support_id ?: 'Sin asignar'}}
+                                    <a href="/incidencia/{{ $incident->id }}/eliminar" class="btn btn-danger btn-sm">
+                                        Eliminar
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach

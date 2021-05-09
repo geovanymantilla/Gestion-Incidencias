@@ -50,6 +50,7 @@ class HomeController extends Controller
             }else{
                 $my_incidents = [];
                 $pending_incidents = [];
+                
                 $incidents_by_me = Incident::where('client_id', $user->id)
                                         ->where('project_id', $selected_project_id)->get();
                 

@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder
             ProjectsTableSeder::class,
             CategoriesTableSeder::class,
             LevelsTableSeeder::class,
+            SupportsTableSeedder::class,
+            ProjectUserTableSeedder::class,            
+            IncidentsTableSeedder::class,
+
             ]);
     }
 }

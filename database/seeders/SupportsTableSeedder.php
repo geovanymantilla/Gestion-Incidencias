@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
-class UsersTableseeder extends Seeder
+class SupportsTableSeedder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,21 +14,19 @@ class UsersTableseeder extends Seeder
      */
     public function run()
     {
-        // Admin
+        //Support
         User::create([
-        	'name' => 'Geovany',
-        	'email' => 'geovanymantilla@gmail.com',
+        	'name' => 'Soporte S1',
+        	'email' => 'soporte@gmail.com',
         	'password' => bcrypt('123123'),
-        	'role' => 0
+        	'role' => 1
         ]);
-
-        // Client
+        //Support
         User::create([
-        	'name' => 'Claudia',
-        	'email' => 'client@gmail.com',
+        	'name' => 'Soporte S2',
+        	'email' => 'soporte02@gmail.com',
         	'password' => bcrypt('123123'),
-        	'role' => 2
+        	'role' => 1
         ]);
-        
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncidentController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,16 +27,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware('verified');
 Route::get('/seleccionar/proyecto/{id}', [HomeController::class, 'selectProject']);
 
 //INCIDENT
 Route::post('/reportar', [IncidentController::class, 'storeReport']);
-Route::get('/reportar', [IncidentController::class, 'getReport']);
+Route::get('/reportar', [IncidentController::class, 'getReport'])->middleware('verified');
 Route::get('/ver/{id}',  [IncidentController::class, 'showReport']);
 
+Route::get('/incidencia/{id}/atender',  [IncidentController::class, 'take']);
+Route::get('/incidencia/{id}/resolver',  [IncidentController::class, 'solve']);
+Route::get('/incidencia/{id}/abrir',  [IncidentController::class, 'open']);
+Route::get('/incidencia/{id}/editar',  [IncidentController::class, 'edit']);
+Route::get('/incidencia/{id}/derivar',  [IncidentController::class, 'nextLevel']);
+
+Route::get('/incidencia/{id}/eliminar', [IncidentController::class, 'deleteIncident']);
+
+//MESSAGE
+Route::post('/mensajes', [MessageController::class, 'store']);
 
 Route::middleware(['admin'])->group(function () {
    

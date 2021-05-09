@@ -38,7 +38,7 @@
                 <tbody>
                     <tr>
                         <td id="incident_responsible">{{ $incident->support_name }}</td>
-                        <td>publico</td>
+                        <td>{{$incident->level->name}}</td>
                         <td id="incident_state">{{ $incident->state }}</td>
                         <td id="incident_severity">{{ $incident->severity_full }}</td>
                     </tr>
@@ -52,7 +52,7 @@
                     </tr>
                     <tr>
                         <th>Descripción</th>
-                        <td id="incident_description">{{ $incident->description }}</td>
+                        <td id="incident_description">{{ $incident->descripcion }}</td>
                     </tr>
                     <tr>
                         <th>Adjuntos</th>
@@ -60,12 +60,39 @@
                     </tr>
                 </tbody>
             </table> 
-            @if ($incident->support_id == null && $incident->active && auth()->user()->canTake($incident))
-                <a href="/incidencia/{{ $incident->id }}/atender" class="btn btn-primary btn-sm" id="incident_btn_apply">
-                Atender incidencia
-                </a>
-            @endif        
+            
+            @if ($incident->support_id == null && $incident->active && auth()->user()->role==1)
+
+            <a href="/incidencia/{{ $incident->id }}/atender"class="btn btn-primary btn-sm" id="incident_btn_apply">Atender Incidendia</a>
+            
+            @endif
+
+            @if (auth()->user()->id == $incident->support_id && $incident->active==0)
+
+                <a href="/incidencia/{{ $incident->id }}/abrir" class="btn btn-info btn-sm" id="incident_btn_open">Volver abrir incidencia</a>
+            
+            @endif
+
+            @if (auth()->user()->id==$incident->client->id)
+
+                @if ($incident->active)
+                <a href="/incidencia/{{ $incident->id }}/resolver" class="btn btn-info btn-sm" id="incident_btn_solve">Marcar como resuelto</a>
+                {{-- @else
+                <a href="/incidencia/{{ $incident->id }}/abrir" class="btn btn-info btn-sm" id="incident_btn_open">Volver abrir incidencia</a> --}}
+                @endif            
+            
+            @endif
+            
+            {{-- <a href="/incidencia/{{ $incident->id }}/editar" class="btn btn-success btn-sm" id="incident_btn_edit">Editar Incidencia</a> --}}
+
+            @if (auth()->user()->id == $incident->support_id && $incident->active)
+
+            <a href="/incidencia/{{ $incident->id }}/derivar" class="btn btn-danger btn-sm" id="inicident_btn_derive">Derivar al siguiente nivel</a>
+            <a href="/incidencia/{{ $incident->id }}/resolver" class="btn btn-info btn-sm" id="incident_btn_solve">Marcar como resuelto</a>  
+            @endif
+            
+            
         </div>
     </div>
-       
+       @include('layouts.chat')
 @endsection

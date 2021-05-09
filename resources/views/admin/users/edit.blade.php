@@ -54,8 +54,8 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <select name="level_id" class="form-control" id="select-level">
-                                    <option value="">Seleccionar Proyecto</option>
+                                <select name="level_id" class="form-control" id="select-level">                                    
+                                    <option value="">Seleccionar Nivel</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
