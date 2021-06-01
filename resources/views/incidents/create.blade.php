@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endsection
 @section('content')
            <div class="card ">
                 <div class="card-header">{{ __('Dashboard') }}</div>
@@ -14,7 +16,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form action=" " method="POST">
+                    <form action=" " method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="category_id">Categoria</label>
@@ -42,10 +44,19 @@
                             <textarea name="descripcion" class="form-control">{{old('descripcion')}}</textarea>
                         </div>
                         <div class="form-group">
+                            <label for="anexo">Anexo</label>
+                            {{-- <input type="file" name="file[]" class="form-control" accept="image/*" multiple="">                             --}}
+                            <input type="file" name="file" class="form-control" accept="image/*">                            
+                        </div>
+                        <br>
+                        <div class="form-group">
                             <button class="btn btn-primary">Registrar Incidente </button>
                         </div>
                     </form>
                 </div>
             </div>
        
+@endsection
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js" integrity="sha512-VQQXLthlZQO00P+uEu4mJ4G4OAgqTtKG1hri56kQY1DtdLeIqhKUp9W/lllDDu3uN3SnUNawpW7lBda8+dSi7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection

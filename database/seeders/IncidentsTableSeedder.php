@@ -19,6 +19,7 @@ class IncidentsTableSeedder extends Seeder
             'title'=>'Primera inicidencia',
             'descripcion' =>'Proeblema en el equipo de recepción no enciende',
             'severity'=>'N',
+            'url'=>'1atnjaryfbWhatsApp Image 2021-05-10 at 9.45.53 AM.jpeg',
             'category_id'=>2,
             'project_id'=>1,
             'level_id'=>1,

@@ -18,14 +18,16 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.css">
+    @yield('css')
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <img class="media-object img-circle" src="/images/logo.png" width="48">
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    {{ config(' app.name', 'Bomberos Villa del Rosario') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -36,9 +38,9 @@
                     @if (auth()->check())                       
                     
                     <ul class="navbar-nav mr-auto">
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <select name="" id="list-of-projects" class="form-control">
+                        <form class="navbar-form" >
+                            <div class="form-group" >
+                                <select name="" id="list-of-projects" class="form-control" style="padding-top: 3px">
                                     @foreach (auth()->user()->list_of_projects as $project)
                                     <option value="{{$project->id}}" @if ($project->id == auth()->user()->selected_project_id) selected @endif>{{$project->name}}</option>
                                     @endforeach
@@ -108,5 +110,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script src="/js/app.js"></script>
     @yield('scripts')
+    @yield('js')
 </body>
 </html>

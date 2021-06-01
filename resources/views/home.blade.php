@@ -90,6 +90,11 @@
                 <h4 class="card-title">Incidencias reportadas por mí</h4>
             </div>
             <div class="card-body">
+                @if (session('notification'))
+                        <div class="alert alert-danger">
+                           {{session('notification')}}
+                        </div>
+                    @endif
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -116,9 +121,14 @@
                                 <td>{{ $incident->created_at }}</td>
                                 <td>{{ $incident->title_short }}</td>
                                 <td>
+                                    @if ($incident->active!=0)
                                     <a href="/incidencia/{{ $incident->id }}/eliminar" class="btn btn-danger btn-sm">
-                                        Eliminar
-                                    </a>
+                                        Eliminar</a>
+                                    @else
+                                    <a href="/ver/{{ $incident->id }}" class="btn btn-info btn-sm">
+                                        Ver</a>
+                                    @endif
+                                                                       
                                 </td>
                             </tr>
                             @endforeach

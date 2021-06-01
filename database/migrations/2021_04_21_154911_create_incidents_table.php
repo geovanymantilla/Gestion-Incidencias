@@ -18,6 +18,7 @@ class CreateIncidentsTable extends Migration
             $table->string('title');
             $table->string('descripcion');
             $table->string('severity',1);
+            $table->string('url');
 
             $table->boolean('active')->default(1);
             

@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endsection
 @section('content')
     <div class="card ">
         <div class="card-header">{{ __('Dashboard') }}</div>
@@ -56,14 +58,29 @@
                     </tr>
                     <tr>
                         <th>Adjuntos</th>
-                        <td id="incident_attachment">No se han adjuntado archivos</td>
+                        <td id="incident_attachment">                        
+                            <a type="button" href="{{Route('file.download', $incident->url)}}">Descargar</a>                            
+                        </td>                      
                     </tr>
                 </tbody>
             </table> 
+            {{-- <div>
+                <h4>Agregar Anexos</h4>
+                <form action=""
+                    method="POST"
+                    class="dropzone"
+                    id="my-awesome-dropzone">
+                </form>
+            </div> --}}
             
             @if ($incident->support_id == null && $incident->active && auth()->user()->role==1)
 
             <a href="/incidencia/{{ $incident->id }}/atender"class="btn btn-primary btn-sm" id="incident_btn_apply">Atender Incidendia</a>
+            
+            @endif
+            @if ($incident->support_id == auth()->user()->id && $incident->active)
+
+            <a href="/incidencia/{{ $incident->id }}/desistir"class="btn btn-warning btn-sm" id="incident_btn_apply">Desistir Incidendia</a>
             
             @endif
 
@@ -73,15 +90,16 @@
             
             @endif
 
-            @if (auth()->user()->id==$incident->client->id)
+            {{-- @if (auth()->user()->id==$incident->client->id)
 
                 @if ($incident->active)
                 <a href="/incidencia/{{ $incident->id }}/resolver" class="btn btn-info btn-sm" id="incident_btn_solve">Marcar como resuelto</a>
                 {{-- @else
                 <a href="/incidencia/{{ $incident->id }}/abrir" class="btn btn-info btn-sm" id="incident_btn_open">Volver abrir incidencia</a> --}}
-                @endif            
+                {{-- @endif             --}}
             
-            @endif
+            {{-- @endif  --}}
+            
             
             {{-- <a href="/incidencia/{{ $incident->id }}/editar" class="btn btn-success btn-sm" id="incident_btn_edit">Editar Incidencia</a> --}}
 
@@ -95,4 +113,18 @@
         </div>
     </div>
        @include('layouts.chat')
+@endsection
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js" integrity="sha512-VQQXLthlZQO00P+uEu4mJ4G4OAgqTtKG1hri56kQY1DtdLeIqhKUp9W/lllDDu3uN3SnUNawpW7lBda8+dSi7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    Dropzone.options.myAwesomeDropzone ={
+        headers:{
+            'X-CSRF-TOKEN' : "{{csrf_token()}}"
+        },
+        dictDefaultMessage: "Arrastre una imagen al recuadro para subirlo",
+        acceptedFiles: "image/*",
+        maxFilesize: 2,
+        maxFiles:4,
+    }
+</script>
 @endsection

@@ -9,7 +9,7 @@
 
 				@if(! auth()->user()->is_client)
 				<li @if (request()->is('ver')) class="nav-link active" @endif class="nav-link list-group-item-action">
-					<a href="#">Ver Incidencias</a>
+					<a href="/incidencias">Ver Incidencias</a>
 				</li>
 				@endif
 
@@ -25,7 +25,7 @@
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					  <li ><a href="/usuarios" class="nav-link list-group-item-action">Usuario</a></li>
 					  <li ><a href="/proyectos" class="nav-link list-group-item-action">Proyectos</a></li>
-					  <li ><a href="/config" class="nav-link list-group-item-action">Configuración</a></li>
+					  {{-- <li ><a href="/config" class="nav-link list-group-item-action">Configuración</a></li> --}}
 					</ul>
 				</li>
 				@endif

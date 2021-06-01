@@ -24,25 +24,29 @@ use App\Http\Controllers\MessageController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [HomeController::class, 'index'])->middleware('verified');
+Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 Route::get('/seleccionar/proyecto/{id}', [HomeController::class, 'selectProject']);
 
 //INCIDENT
 Route::post('/reportar', [IncidentController::class, 'storeReport']);
+Route::post('/ver/{id}/anexos', [IncidentController::class, 'storeAnnexes'])->name('files.store');
 Route::get('/reportar', [IncidentController::class, 'getReport'])->middleware('verified');
-Route::get('/ver/{id}',  [IncidentController::class, 'showReport']);
+Route::get('/ver/{id}',  [IncidentController::class, 'showReport'])->name('ver.id');
+Route::get('/incidencias',  [IncidentController::class, 'show']);
 
 Route::get('/incidencia/{id}/atender',  [IncidentController::class, 'take']);
 Route::get('/incidencia/{id}/resolver',  [IncidentController::class, 'solve']);
+Route::get('/incidencia/{id}/desistir',  [IncidentController::class, 'desist']);
 Route::get('/incidencia/{id}/abrir',  [IncidentController::class, 'open']);
 Route::get('/incidencia/{id}/editar',  [IncidentController::class, 'edit']);
 Route::get('/incidencia/{id}/derivar',  [IncidentController::class, 'nextLevel']);
+Route::get('/incidencia/{id}/descargar',  [IncidentController::class, 'download'])->name('file.download');
 
 Route::get('/incidencia/{id}/eliminar', [IncidentController::class, 'deleteIncident']);
 

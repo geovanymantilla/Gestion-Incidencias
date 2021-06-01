@@ -9,6 +9,7 @@ class Incident extends Model
 {
     use HasFactory;
 
+    // protected $fillable = ['url'];
     public function category(){
         return $this->belongsTo('App\Models\Category');
     }
